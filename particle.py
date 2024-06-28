@@ -43,6 +43,7 @@ class ParticleSystem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.pos()
 
+        self.master_particle_container = world_reference.world_camera
         self.particle_container = pygame.sprite.Group()
         self.particle_color = color.black
         self.max_particles = 100
@@ -72,6 +73,7 @@ class ParticleSystem(pygame.sprite.Sprite):
             p.vel.x = random.uniform(min_x_vel, max_x_vel)
             p.vel.y = random.uniform(min_y_vel, max_y_vel)
 
+            self.master_particle_container.add(p)
             self.particle_container.add(p)
 
 class PlayerParticleSystem(ParticleSystem):

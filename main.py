@@ -1,5 +1,6 @@
 import pygame
 import debug
+import world
 
 from settings import *
 
@@ -15,6 +16,7 @@ class Game():
         events = pygame.event.get()
 
         self.debug_interface = debug.DebugInterface()
+        self.world = world.World("assets/backgrounds/test.png")
 
     def start(self) -> None:
         while self.running:
@@ -38,10 +40,13 @@ class Game():
     def draw(self) -> None:
         self.screen.fill(color.black)
 
+        self.world.draw()
+
         if self.debug_interface.active:
             self.debug_interface.draw()
 
     def update(self) -> None:
+        self.world.update()
 
         self.debug_interface.update(self.clock)            
         pygame.display.update()
