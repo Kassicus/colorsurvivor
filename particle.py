@@ -93,3 +93,26 @@ class PlayerParticleSystem(ParticleSystem):
         self.particle_color = settings.color.random_gray(min_value=120)
         new_count = self.max_particles - len(self.particle_container)
         self.create_particles(new_pos.x, new_pos.y, new_count, 3, 5, 15, 20, 45, -40, 40, -40, 40)
+
+class EnemyParticleSystem(ParticleSystem):
+    def __init__(self,
+                 init_x: int,
+                 init_y: int
+                 ) -> None:
+        super().__init__()
+
+        self.max_particles = 50
+
+        self.spawn_pos = pygame.math.Vector2(init_x, init_y)
+        self.particle_color = settings.color.random_custom("r", min_value = 120)
+        self.create_particles(self.spawn_pos.x, self.spawn_pos.y, self.max_particles, 3, 5, 8, 20, 45, -40, 40, -40, 40)
+
+    def update(self,
+               x: int,
+               y: int
+               ) -> None:
+        
+        new_pos = pygame.math.Vector2(int(x), int(y))
+        self.particle_color = settings.color.random_custom("r", min_value = 120)
+        new_count = self.max_particles - len(self.particle_container)
+        self.create_particles(new_pos.x, new_pos.y, new_count, 3, 5, 8, 20, 45, -40, 40, -40, 40)

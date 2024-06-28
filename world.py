@@ -26,6 +26,7 @@ class World():
     def create_enemies(self, count: int) -> None:
         for c in range(count):
             c = enemy.FollowEnemy(random.randint(0, settings.SCREEN_WIDTH), random.randint(0, settings.SCREEN_HEIGHT), 20, 100)
+            c.particle_system = particle.EnemyParticleSystem(c.pos.x, c.pos.y)
             self.world_camera.add(c)
             self.enemy_container.add(c)
 

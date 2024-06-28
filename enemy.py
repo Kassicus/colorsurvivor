@@ -15,15 +15,20 @@ class BaseEnemy(pygame.sprite.Sprite):
         self.speed = 100
         self.health = 5
 
+        self.particle_system = None
+
         self.image = pygame.Surface([size, size])
         self.image.fill(settings.color.red)
-        #self.image.set_colorkey(settings.color.red)
+        self.image.set_colorkey(settings.color.red)
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
     def update(self) -> None:
         self.pos += self.vel * settings.delta_time
         self.rect.center = self.pos
+
+        if self.particle_system is not None:
+            self.particle_system.update(self.pos.x, self.pos.y)
 
         if self.health <= 0:
             self.kill()

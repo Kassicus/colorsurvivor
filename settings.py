@@ -23,17 +23,17 @@ class ColorLibrary():
         color = pygame.Color(value, value, value)
         return color
     
-    def random_custom(self, channels: str) -> pygame.Color:
+    def random_custom(self, channels: str, min_value: int = 0, max_value: int = 255) -> pygame.Color:
         red = 0
         green = 0
         blue = 0
 
         if 'r' in channels:
-            red = random.randint(0, 255)
+            red = random.randint(min_value, max_value)
         if 'g' in channels:
-            green = random.randint(0, 255)
+            green = random.randint(min_value, max_value)
         if 'b' in channels:
-            blue = random.randint(0, 255)
+            blue = random.randint(min_value, max_value)
 
         color = pygame.Color(red, green, blue)
 
