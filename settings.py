@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
@@ -37,6 +38,15 @@ class ColorLibrary():
         color = pygame.Color(red, green, blue)
 
         return color
+    
+def get_vectors(origin: pygame.sprite.Sprite, target: pygame.sprite.Sprite) -> list:
+    distance = [target.pos.x - origin.pos.x, target.pos.y - origin.pos.y]
+    normal = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
+    direction = [distance[0] / normal, distance[1] / normal]
+    vectors = [direction[0] * origin.speed, direction[1] * origin.speed]
+
+    return vectors
+
 
 color = ColorLibrary()
 
