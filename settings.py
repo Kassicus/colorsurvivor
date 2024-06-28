@@ -17,6 +17,11 @@ class ColorLibrary():
         color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         return color
     
+    def random_gray(self, min_value: int = 0, max_value: int = 255) -> pygame.Color:
+        value = random.randint(min_value, max_value)
+        color = pygame.Color(value, value, value)
+        return color
+    
     def random_custom(self, channels: str) -> pygame.Color:
         red = 0
         green = 0
