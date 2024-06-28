@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.image.fill(color.white)
         self.image.set_colorkey(color.white)
         self.rect = self.image.get_rect()
-        self.rect.center = self.pos()
+        self.rect.center = self.pos
 
     def update(self) -> None:
         self.pos += self.vel * delta_time

@@ -16,7 +16,7 @@ class Game():
         events = pygame.event.get()
 
         self.debug_interface = debug.DebugInterface()
-        self.world = world.World("assets/backgrounds/test.png")
+        self.world = world.World("assets/backgrounds/test_map.png")
 
     def start(self) -> None:
         while self.running:

@@ -1,14 +1,12 @@
 import pygame
-import random
 import camera
 import player
 import particle
-
-from settings import *
+import settings
 
 class World():
     def __init__(self, background_path: str) -> None:
-        world_reference = self
+        settings.world_reference = self
 
         self.display_surface = pygame.display.get_surface()
         self.world_background = pygame.image.load(background_path).convert_alpha()

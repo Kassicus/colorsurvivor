@@ -41,7 +41,7 @@ class ParticleSystem(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2(0, 0)
         self.image = pygame.Surface([0, 0])
         self.rect = self.image.get_rect()
-        self.rect.center = self.pos()
+        self.rect.center = self.pos
 
         self.master_particle_container = world_reference.world_camera
         self.particle_container = pygame.sprite.Group()
