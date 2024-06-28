@@ -39,8 +39,10 @@ class ColorLibrary():
         return color
 
 color = ColorLibrary()
+
 events = None
-global_offset = pygame.math.Vector2()
 world_reference = None
+
+global_offset = pygame.math.Vector2()
 delta_time = 0
 fps_limit = 120

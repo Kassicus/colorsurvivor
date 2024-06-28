@@ -1,7 +1,6 @@
 import pygame
 import random
-
-from settings import *
+import settings
 
 class Particle(pygame.sprite.Sprite):
     def __init__(self,
@@ -27,7 +26,7 @@ class Particle(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def update(self) -> None:
-        self.pos += self.vel * delta_time
+        self.pos += self.vel * settings.delta_time
         self.rect.center = self.pos
 
         self.lifetime -= 1
@@ -43,9 +42,9 @@ class ParticleSystem(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
-        #self.master_particle_container = world_reference.world_camera
         self.particle_container = pygame.sprite.Group()
-        self.particle_color = color.black
+        self.master_particle_container = settings.world_reference.world_camera
+        self.particle_color = settings.color.black
         self.max_particles = 100
 
     def create_particles(self,
@@ -66,22 +65,23 @@ class ParticleSystem(pygame.sprite.Sprite):
         for p in range(count):
             particle_size = random.randint(min_particle_size, max_particle_size)
             x_range = (int(x - particle_offset), int(x + particle_offset))
-            y_range = (int(y - particle_offset), int(y - particle_offset))
+            y_range = (int(y - particle_offset), int(y + particle_offset))
             spawn_pos = pygame.math.Vector2(random.randint(x_range[0], x_range[1]), random.randint(y_range[0], y_range[1]))
             p = Particle(spawn_pos.x, spawn_pos.y, particle_size, particle_size, self.particle_color, min_life, max_life)
 
             p.vel.x = random.uniform(min_x_vel, max_x_vel)
             p.vel.y = random.uniform(min_y_vel, max_y_vel)
 
-            #self.master_particle_container.add(p)
+            self.master_particle_container.add(p)
             self.particle_container.add(p)
+            settings.world_reference.particle_group.add(p)
 
 class PlayerParticleSystem(ParticleSystem):
     def __init__(self) -> None:
         super().__init__()
 
-        self.spawn_pos = pygame.math.Vector2(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))
-        self.particle_color = color.random_gray(min_value=100)
+        self.spawn_pos = pygame.math.Vector2(int(settings.SCREEN_WIDTH / 2), int(settings.SCREEN_HEIGHT / 2))
+        self.particle_color = settings.color.random_gray(min_value=120)
         self.create_particles(self.spawn_pos.x, self.spawn_pos.y, self.max_particles, 3, 5, 15, 20, 45, -40, 40, -40, 40)
 
     def update(self,
@@ -90,6 +90,6 @@ class PlayerParticleSystem(ParticleSystem):
                ) -> None:
         
         new_pos = pygame.math.Vector2(int(x), int(y))
-        self.particle_color = color.random_gray(min_value=100)
+        self.particle_color = settings.color.random_gray(min_value=120)
         new_count = self.max_particles - len(self.particle_container)
         self.create_particles(new_pos.x, new_pos.y, new_count, 3, 5, 15, 20, 45, -40, 40, -40, 40)

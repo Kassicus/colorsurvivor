@@ -1,19 +1,18 @@
 import pygame
+import settings
 import debug
 import world
-
-from settings import *
 
 pygame.init()
 
 class Game():
     def __init__(self) -> None:
-        self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
-        pygame.display.set_caption(SCREEN_TITLE)
+        self.screen = pygame.display.set_mode([settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT])
+        pygame.display.set_caption(settings.SCREEN_TITLE)
 
         self.running = True
         self.clock = pygame.time.Clock()
-        events = pygame.event.get()
+        settings.events = pygame.event.get()
 
         self.debug_interface = debug.DebugInterface()
         self.world = world.World("assets/backgrounds/test_map.png")
@@ -25,9 +24,9 @@ class Game():
             self.update()
 
     def event_loop(self) -> None:
-        events = pygame.event.get()
+        settings.events = pygame.event.get()
 
-        for event in events:
+        for event in settings.events:
             if event.type == pygame.QUIT:
                 self.running = False
 
@@ -38,7 +37,7 @@ class Game():
                     self.debug_interface.toggle_active()
 
     def draw(self) -> None:
-        self.screen.fill(color.black)
+        self.screen.fill(settings.color.black)
 
         self.world.draw()
 
@@ -50,7 +49,7 @@ class Game():
 
         self.debug_interface.update(self.clock)            
         pygame.display.update()
-        delta_time = self.clock.tick(fps_limit) / 1000
+        settings.delta_time = self.clock.tick(settings.fps_limit) / 1000
 
 if __name__ == '__main__':
     game = Game()
