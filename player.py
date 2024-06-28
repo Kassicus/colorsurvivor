@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = pygame.Surface([self.size, self.size])
         self.image.fill(color.white)
-        self.image.set_colorkey(color.white)
+        #self.image.set_colorkey(color.white)
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
 
@@ -31,6 +31,7 @@ class Player(pygame.sprite.Sprite):
     def move(self) -> None:
         keys = pygame.key.get_pressed()
 
+        print(keys)
         if keys[pygame.K_a]:
             self.vel.x -= self.speed
         elif keys[pygame.K_d]:
