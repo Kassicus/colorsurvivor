@@ -1,6 +1,5 @@
 import pygame
-
-from settings import *
+import settings
 
 class PlayerCenterCamera(pygame.sprite.Group):
     def __init__(self, ground_surface: pygame.Surface) -> None:
@@ -14,15 +13,15 @@ class PlayerCenterCamera(pygame.sprite.Group):
         self.ground_rect = self.ground_surface.get_rect(topleft = (0, 0))
 
     def center_target_camera(self, target: pygame.sprite.Sprite) -> None:
-        global_offset.x = target.rect.centerx - self.half_width
-        global_offset.y = target.rect.centery - self.half_height
+        settings.global_offset.x = target.rect.centerx - self.half_width
+        settings.global_offset.y = target.rect.centery - self.half_height
 
     def camera_draw(self, player: pygame.sprite.Sprite) -> None:
         self.center_target_camera(player)
 
-        ground_offset = self.ground_rect.topleft - global_offset
+        ground_offset = self.ground_rect.topleft - settings.global_offset
         self.display_surface.blit(self.ground_surface, ground_offset)
 
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
-            offset_pos = sprite.rect.topleft - global_offset
+            offset_pos = sprite.rect.topleft - settings.global_offset
             self.display_surface.blit(sprite.image, offset_pos)
