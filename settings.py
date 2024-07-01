@@ -47,6 +47,19 @@ def get_vectors(origin: pygame.sprite.Sprite, target: pygame.sprite.Sprite) -> l
 
     return vectors
 
+def get_pos_vectors(origin_pos: pygame.math.Vector2, target_pos: pygame.math.Vector2, speed: float) -> list:
+    distance = [target_pos.x - origin_pos.x, target_pos.y - origin_pos.y]
+    normal = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
+    direction = [distance[0] / normal, distance[1] / normal]
+    vectors = [distance[0] * speed, direction[1] * speed]
+
+    return vectors
+
+def get_distance(origin_pos, target_pos) -> float:
+    distance = [target_pos.x - origin_pos.x, target_pos.y - origin_pos.y]
+    normal = math.sqrt(distance[0] ** 2 + distance [1] ** 2)
+
+    return normal
 
 color = ColorLibrary()
 

@@ -1,5 +1,6 @@
 import pygame
 import settings
+import projectile
 
 class MeleeBase():
     def __init__(self,
@@ -20,14 +21,14 @@ class MeleeBase():
         self.cooldown = cooldown
         self.max_cooldown = cooldown
 
-    def update(self):
+    def update(self) -> None:
         self.cooldown -= 1
 
         if self.cooldown <= 0:
             self.use()
             self.cooldown = self.max_cooldown
 
-    def use(self):
+    def use(self) -> None:
         self.damage_box = self.create_damage_box(self.direction)
         for e in settings.world_reference.enemy_container:
             if e.rect.colliderect(self.damage_box):
@@ -45,6 +46,44 @@ class MeleeBase():
 
         return r
     
+class RangeBase():
+    def __init__(self,
+                 range: int,
+                 damage: int,
+                 cooldown: int,
+                 p_size: int,
+                 p_speed: int,
+                 p_color: pygame.Color
+                 ) -> None:
+        
+        self.parent = settings.world_reference.player
+
+        self.range = range
+        
+        self.damage = damage
+        self.size = p_size
+        self.speed = p_speed
+        self.color = p_color
+        
+        self.cooldown = cooldown
+        self.max_cooldown = cooldown
+
+    def update(self) -> None:
+        self.cooldown -= 1
+
+        if self.cooldown <= 0:
+            self.use()
+            self.cooldown = self.max_cooldown
+
+    def use(self) -> None:
+        for e in settings.world_reference.enemy_container:
+            if settings.get_distance(self.parent.pos, e.pos) < self.range:
+                p = projectile.Projectile(self.parent.x, self.parent.y, e.pos.x, e.pos.y, self.size, self.speed, self.damage, self.color)
+    
 class MeleeKnife(MeleeBase):
     def __init__(self) -> None:
         super().__init__(200, "e", 5, 300)
+
+class RangeMissle(RangeBase):
+    def __init__(self) -> None:
+        super().__init__(400, 5, 250, 3, 150, settings.color.white)
