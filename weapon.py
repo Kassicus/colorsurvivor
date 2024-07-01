@@ -68,6 +68,8 @@ class RangeBase():
         self.cooldown = cooldown
         self.max_cooldown = cooldown
 
+        self.multishot_count = 1
+
     def update(self) -> None:
         self.cooldown -= 1
 
@@ -76,9 +78,15 @@ class RangeBase():
             self.cooldown = self.max_cooldown
 
     def use(self) -> None:
+        shots = 0
+
         for e in settings.world_reference.enemy_container:
             if settings.get_distance(self.parent.pos, e.pos) < self.range:
-                p = projectile.Projectile(self.parent.x, self.parent.y, e.pos.x, e.pos.y, self.size, self.speed, self.damage, self.color)
+                if shots < self.multishot_count:
+                    p = projectile.Projectile(self.parent.pos.x, self.parent.pos.y, e.pos.x, e.pos.y, self.size, self.speed, self.damage, self.color)
+                    settings.world_reference.world_camera.add(p)
+                    settings.world_reference.friendly_projectiles.add(p)
+                    shots += 1
     
 class MeleeKnife(MeleeBase):
     def __init__(self) -> None:
@@ -86,4 +94,4 @@ class MeleeKnife(MeleeBase):
 
 class RangeMissle(RangeBase):
     def __init__(self) -> None:
-        super().__init__(400, 5, 250, 3, 150, settings.color.white)
+        super().__init__(400, 5, 250, 5, 300, settings.color.green)

@@ -18,11 +18,12 @@ class World():
         self.player = player.Player()
         self.particle_group = pygame.sprite.Group()
         self.enemy_container = pygame.sprite.Group()
+        self.friendly_projectiles = pygame.sprite.Group()
 
         self.world_camera.add(self.player)
         self.player.particle_system = particle.PlayerParticleSystem()
 
-        self.player.weapons.append(weapon.RangeMissle)
+        self.player.weapons.append(weapon.RangeMissle())
 
         self.create_enemies(5)
 
@@ -33,6 +34,13 @@ class World():
             self.world_camera.add(c)
             self.enemy_container.add(c)
 
+    def friendly_projectile_collision(self) -> None:
+        for e in self.enemy_container:
+            for p in self.friendly_projectiles:
+                if e.rect.colliderect(p.rect):
+                    e.health -= p.damage
+                    p.kill()
+
     def draw(self) -> None:
         self.world_camera.camera_draw(self.player)
 
@@ -40,6 +48,8 @@ class World():
         self.world_camera.update()
         self.particle_group.update()
         self.enemy_container.update()
+        self.friendly_projectiles.update()
+        self.friendly_projectile_collision()
 
         for e in self.enemy_container:
             if e.tag == "follower":

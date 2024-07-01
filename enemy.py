@@ -49,5 +49,4 @@ class FollowEnemy(BaseEnemy):
         self.health = 5
 
     def follow_player(self) -> None:
-        self.vel.x = settings.get_vectors(self, settings.world_reference.player)[0]
-        self.vel.y = settings.get_vectors(self, settings.world_reference.player)[1]
+        self.vel.x, self.vel.y = settings.get_vectors(self, settings.world_reference.player)

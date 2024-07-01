@@ -51,7 +51,7 @@ def get_pos_vectors(origin_pos: pygame.math.Vector2, target_pos: pygame.math.Vec
     distance = [target_pos.x - origin_pos.x, target_pos.y - origin_pos.y]
     normal = math.sqrt(distance[0] ** 2 + distance[1] ** 2)
     direction = [distance[0] / normal, distance[1] / normal]
-    vectors = [distance[0] * speed, direction[1] * speed]
+    vectors = [direction[0] * speed, direction[1] * speed]
 
     return vectors
 
