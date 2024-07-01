@@ -5,6 +5,7 @@ import particle
 import settings
 import enemy
 import random
+import weapon
 
 class World():
     def __init__(self, background_path: str) -> None:
@@ -20,6 +21,8 @@ class World():
 
         self.world_camera.add(self.player)
         self.player.particle_system = particle.PlayerParticleSystem()
+
+        self.player.weapons.append(weapon.MeleeKnife())
 
         self.create_enemies(5)
 

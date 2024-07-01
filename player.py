@@ -12,6 +12,8 @@ class Player(pygame.sprite.Sprite):
 
         self.particle_system = None
 
+        self.weapons = []
+
         self.image = pygame.Surface([self.size, self.size])
         self.image.fill(settings.color.white)
         self.image.set_colorkey(settings.color.white)
@@ -26,6 +28,9 @@ class Player(pygame.sprite.Sprite):
         
         if self.particle_system is not None:
             self.particle_system.update(self.pos.x, self.pos.y)
+
+        for weapon in self.weapons:
+            weapon.update()
 
     def move(self) -> None:
         keys = pygame.key.get_pressed()
