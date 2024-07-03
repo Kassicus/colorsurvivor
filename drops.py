@@ -11,8 +11,6 @@ class BaseDrop(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.pos = pygame.math.Vector2(x, y)
-        #self.vel = pygame.math.Vector2()
-        #self.speed = 100
 
         self.image = pygame.Surface([5, 5])
         self.image.fill((0, 255, 0))

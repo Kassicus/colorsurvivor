@@ -58,7 +58,7 @@ class FollowEnemy(BaseEnemy):
     
         self.tag = "follower"
 
-        self.speed = 10
+        self.speed = 70
         self.health = 5
 
         self.drop_table.append(drops.HealthDrop)

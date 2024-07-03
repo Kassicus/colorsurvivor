@@ -45,12 +45,14 @@ class World():
                     p.kill()
 
     def enemy_collision(self) -> None:
+        padding = 10
+
         for e in self.enemy_container:
             for e2 in self.enemy_container:
                 if e != e2:
                     if e.rect.colliderect(e2.rect):
-                        e.pos.x += random.randint(-5, 5)
-                        e.pos.y += random.randint(-5, 5)
+                        e.pos.x += random.randint(-padding, padding)
+                        e.pos.y += random.randint(-padding, padding)
 
     def draw(self) -> None:
         self.world_camera.camera_draw(self.player)
