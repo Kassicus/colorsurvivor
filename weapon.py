@@ -79,14 +79,17 @@ class RangeBase():
 
     def use(self) -> None:
         shots = 0
+        targets = []
 
         for e in settings.world_reference.enemy_container:
             if settings.get_distance(self.parent.pos, e.pos) < self.range:
-                if shots < self.multishot_count:
-                    p = projectile.Projectile(self.parent.pos.x, self.parent.pos.y, e.pos.x, e.pos.y, self.size, self.speed, self.damage, self.color)
-                    settings.world_reference.world_camera.add(p)
-                    settings.world_reference.friendly_projectiles.add(p)
-                    shots += 1
+                if e not in targets:
+                    if shots < self.multishot_count:
+                        p = projectile.Projectile(self.parent.pos.x, self.parent.pos.y, e.pos.x, e.pos.y, self.size, self.speed, self.damage, self.color)
+                        settings.world_reference.world_camera.add(p)
+                        settings.world_reference.friendly_projectiles.add(p)
+                        targets.append(e)
+                        shots += 1
     
 class MeleeKnife(MeleeBase):
     def __init__(self) -> None:
@@ -95,3 +98,8 @@ class MeleeKnife(MeleeBase):
 class RangeMissle(RangeBase):
     def __init__(self) -> None:
         super().__init__(400, 5, 250, 5, 300, settings.color.green)
+
+class RangeMultishot(RangeBase):
+    def __init__(self) -> None:
+        super().__init__(400, 5, 50, 5, 300, settings.color.green)
+        self.multishot_count = 3

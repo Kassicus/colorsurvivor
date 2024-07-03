@@ -1,5 +1,6 @@
 import pygame
 import settings
+import drops
 
 class Player(pygame.sprite.Sprite):
     def __init__(self) -> None:
@@ -10,9 +11,13 @@ class Player(pygame.sprite.Sprite):
         self.speed = 250
         self.size = 40
 
+        self.health = 5
+
         self.particle_system = None
 
         self.weapons = []
+        self.inventory = pygame.sprite.Group()
+        self.coins = 0
 
         self.image = pygame.Surface([self.size, self.size])
         self.image.fill(settings.color.white)
@@ -25,6 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
         self.move()
+        self.get_coins()
         
         if self.particle_system is not None:
             self.particle_system.update(self.pos.x, self.pos.y)
@@ -48,3 +54,9 @@ class Player(pygame.sprite.Sprite):
             self.vel.y = self.speed
         else:
             self.vel.y = 0
+
+    def get_coins(self) -> int:
+        for item in self.inventory:
+            if isinstance(item, drops.CoinDrop):
+                self.coins += item.value
+                item.kill()
