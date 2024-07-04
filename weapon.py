@@ -101,5 +101,5 @@ class RangeMissle(RangeBase):
 
 class RangeMultishot(RangeBase):
     def __init__(self) -> None:
-        super().__init__(400, 5, 250, 5, 300, settings.color.green)
+        super().__init__(400, 3, 250, 5, 300, settings.color.green)
         self.multishot_count = 3

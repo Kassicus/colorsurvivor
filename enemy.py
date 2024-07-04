@@ -67,3 +67,21 @@ class FollowEnemy(BaseEnemy):
     def follow_player(self) -> None:
         self.vel.x, self.vel.y = settings.get_vectors(self, settings.world_reference.player)
 
+class FlyerEnemy(BaseEnemy):
+    def __init__(self,
+                 x: int,
+                 y: int,
+                 ) -> None:
+        
+        super().__init__(x, y, 20)
+    
+        self.tag = "flyer follower"
+
+        self.speed = 100
+        self.health = 3
+
+        self.drop_table.append(drops.HealthDrop)
+        self.drop_table.append(drops.CoinDrop)
+
+    def follow_player(self) -> None:
+        self.vel.x, self.vel.y = settings.get_vectors(self, settings.world_reference.player)
