@@ -3,7 +3,27 @@ import settings
 import drops
 
 class Player(pygame.sprite.Sprite):
+    """
+    Represents the player character in the game.
+
+    Attributes:
+        pos (pygame.math.Vector2): The position of the player.
+        vel (pygame.math.Vector2): The velocity of the player.
+        speed (int): The speed at which the player moves.
+        size (int): The size of the player.
+        health (int): The health of the player.
+        particle_system (ParticleSystem): The particle system associated with the player.
+        weapons (list): List of weapons the player has.
+        inventory (pygame.sprite.Group): The inventory of the player.
+        coins (int): The number of coins the player has.
+        image (pygame.Surface): The image representing the player.
+        rect (pygame.Rect): The rectangle representing the player's position and size.
+    """
+
     def __init__(self) -> None:
+        """
+        Initializes a new instance of the Player class.
+        """
         pygame.sprite.Sprite.__init__(self)
 
         self.pos = pygame.math.Vector2(int(settings.SCREEN_WIDTH / 2), int(settings.SCREEN_HEIGHT / 2))
@@ -26,6 +46,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def update(self) -> None:
+        """
+        Updates the player's position and performs other necessary updates.
+        """
         self.pos += self.vel * settings.delta_time
         self.rect.center = self.pos
 
@@ -39,6 +62,9 @@ class Player(pygame.sprite.Sprite):
             weapon.update()
 
     def move(self) -> None:
+        """
+        Handles the player's movement based on keyboard input.
+        """
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -56,7 +82,15 @@ class Player(pygame.sprite.Sprite):
             self.vel.y = 0
 
     def get_coins(self) -> int:
+        """
+        Collects coins from the inventory and updates the player's coin count.
+        
+        Returns:
+            int: The updated coin count.
+        """
         for item in self.inventory:
             if isinstance(item, drops.CoinDrop):
                 self.coins += item.value
                 item.kill()
+        
+        return self.coins

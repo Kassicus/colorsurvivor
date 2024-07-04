@@ -10,7 +10,44 @@ import images
 import wall
 
 class World():
+    """
+    The World class represents the game world in Color Survivor.
+
+    Attributes:
+    - display_surface: The Pygame surface used for displaying the game.
+    - world_background: The background image of the game world.
+    - world_camera: The camera used to track the player's movement.
+    - player: The player character.
+    - particle_group: A group of particles in the game world.
+    - enemy_container: A group of enemy characters in the game world.
+    - friendly_projectiles: A group of projectiles fired by the player.
+    - ground_items: A group of items on the ground in the game world.
+    - collidables: A group of objects that can be collided with.
+    - wall_container: A group of walls in the game world.
+    - walls: A list of wall coordinates in the game world.
+
+    Methods:
+    - __init__(background_path: str): Initializes the World object.
+    - create_enemies(count: int, etype: str): Creates a specified number of enemies.
+    - friendly_projectile_collision(): Handles collision between friendly projectiles and enemies.
+    - enemy_collision(): Handles collision between enemies.
+    - player_wall_collisions(): Handles collision between the player and walls.
+    - enemy_wall_collisions(): Handles collision between enemies and walls.
+    - create_walls(wall_array: list): Creates walls in the game world.
+    - draw(): Draws the game world.
+    - update(): Updates the game world.
+    """
+
     def __init__(self, background_path: str) -> None:
+        """
+        Initializes the World object.
+
+        Parameters:
+        - background_path (str): The file path of the background image.
+
+        Returns:
+        - None
+        """
         settings.world_reference = self
         images.load_images()
 
@@ -39,6 +76,16 @@ class World():
         self.create_walls(self.walls)
 
     def create_enemies(self, count: int, etype: str) -> None:
+        """
+        Creates a specified number of enemies.
+
+        Parameters:
+        - count (int): The number of enemies to create.
+        - etype (str): The type of enemies to create.
+
+        Returns:
+        - None
+        """
         if etype == "follower":
             for c in range(count):
                 c = enemy.FollowEnemy(random.randint(0, settings.SCREEN_WIDTH), random.randint(0, settings.SCREEN_HEIGHT))
@@ -53,6 +100,12 @@ class World():
                 self.enemy_container.add(c)
 
     def friendly_projectile_collision(self) -> None:
+        """
+        Handles collision between friendly projectiles and enemies.
+
+        Returns:
+        - None
+        """
         for e in self.enemy_container:
             for p in self.friendly_projectiles:
                 if e.rect.colliderect(p.rect):
@@ -60,6 +113,12 @@ class World():
                     p.kill()
 
     def enemy_collision(self) -> None:
+        """
+        Handles collision between enemies.
+
+        Returns:
+        - None
+        """
         padding = 10
 
         for e in self.enemy_container:
@@ -70,6 +129,12 @@ class World():
                         e.pos.y += random.randint(-padding, padding)
 
     def player_wall_collisions(self) -> None:
+        """
+        Handles collision between the player and walls.
+
+        Returns:
+        - None
+        """
         collision_tollerance = 15
 
         for c in self.collidables:
@@ -88,6 +153,12 @@ class World():
                     self.player.pos.y = c.rect.top - self.player.rect.height / 2
 
     def enemy_wall_collisions(self) -> None:
+        """
+        Handles collision between enemies and walls.
+
+        Returns:
+        - None
+        """
         collision_tollerance = 15
 
         for e in self.enemy_container:
@@ -108,6 +179,15 @@ class World():
                             e.pos.y = c.rect.top - e.rect.height / 2
 
     def create_walls(self, wall_array: list) -> None:
+        """
+        Creates walls in the game world.
+
+        Parameters:
+        - wall_array (list): A list of wall coordinates.
+
+        Returns:
+        - None
+        """
         for point_array in range(len(wall_array)):
             w = wall.Wall(wall_array[point_array][0], wall_array[point_array][1], wall_array[point_array][2], wall_array[point_array][3])
             self.world_camera.add(w)
@@ -115,9 +195,21 @@ class World():
             self.wall_container.add(w)
 
     def draw(self) -> None:
+        """
+        Draws the game world.
+
+        Returns:
+        - None
+        """
         self.world_camera.camera_draw(self.player)
 
     def update(self) -> None:
+        """
+        Updates the game world.
+
+        Returns:
+        - None
+        """
         self.world_camera.update()
         self.particle_group.update()
         self.enemy_container.update()
