@@ -32,6 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.size = 40
 
         self.health = 5
+        self.max_health = 15
 
         self.particle_system = None
 
@@ -60,6 +61,9 @@ class Player(pygame.sprite.Sprite):
 
         for weapon in self.weapons:
             weapon.update()
+
+        if self.health > self.max_health:
+            self.health = self.max_health
 
     def move(self) -> None:
         """

@@ -3,35 +3,67 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "test_map.tmx",
+    "activeFile": "new_test",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "new_test": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 521.3333333333334,
+                "y": 580.6666666666665
+            }
+        },
+        "primary_tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.5
+        },
+        "primary_tiles_2x.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "test.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "test_map.tmx": {
-            "scale": 0.5,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -11,
-                "y": -6
+                "x": 33.33333333333337,
+                "y": 19.333333333333258
             }
+        },
+        "tileset.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
         }
     },
-    "last.imagePath": "/home/kason/Documents/github/colorsurvivor/assets/tilesheets",
+    "last.imagePath": "/home/kason/Documents/github/project_zenith/assets/tilesheets",
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
     "openFiles": [
-        "test_map.tmx"
+        "test_map.tmx",
+        "tileset.tsx",
+        "new_test"
     ],
     "project": "colorsurvivor.tiled-project",
     "recentFiles": [
         "test_map.tmx",
+        "tileset.tsx",
+        "new_test",
+        "primary_tiles_2x.tsx",
+        "primary_tiles.tsx",
         "test.tsx"
     ],
-    "tileset.lastUsedFormat": "tsx"
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
 }
